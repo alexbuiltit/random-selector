@@ -14,6 +14,13 @@ const Index = () => {
     setTextareaValue(event.target.value);
   }
   
+  const resetState = () => {
+    setSubmitted(false);
+    setHasErrors(false);
+    setSelectedItem();
+    setTextareaValue();
+  }
+
   //Submit function that sets the submitted state to true
   const handleSubmit = () => {
     if(textareaValue){
@@ -46,6 +53,7 @@ const Index = () => {
     return(
       <Layout>
         <h2>Selected Item: {selectedItem}</h2>
+        <button onClick={() => resetState()}>Reset</button>
       </Layout>
     )
   }

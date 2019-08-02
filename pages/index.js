@@ -3,8 +3,9 @@ import Layout from '../components/Layout'
 
 const Index = () => {
 
-  //Using hooks to set the text area value and whether the form has been submitted.
+  //Using hooks to set the textarea value and whether the form has been submitted.
   const [textareaValue, setTextareaValue] = useState();
+  const [selectedItem, setSelectedItem] = useState();
   const [submitted, setSubmitted] = useState(false);
   
   //Creating a value change function which sets the state to the text area value
@@ -14,14 +15,31 @@ const Index = () => {
   
   //Submit function that sets the submitted state to true
   const handleSubmit = () => {
+
+    //Replace any line breaks and white spaces.
+    const replaceWhiteSpace = textareaValue.replace(/(\r\n|\n|\r)/gm,',').replace(/ /g, '');
+
+    //Create array from comma separated values
+    const list = replaceWhiteSpace.split(',');
+
+    //Get length of array
+    const total = list.length;
+
+    //Generate random number to select random item from array
+    const randomNumber = Math.floor(Math.random() * Math.floor(total));
+    
+    //Set submitted state to true
     setSubmitted(true);
+
+    //Set selected item to be displayed
+    setSelectedItem(list[randomNumber]);
   }
 
   //If the form has been submitted, return this
-  if(submitted){
+  if(submitted && selectedItem){
     return(
       <Layout>
-        {textareaValue}
+        <h2>Selected Item: {selectedItem}</h2>
       </Layout>
     )
   }
